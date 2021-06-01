@@ -12,7 +12,7 @@
  <use transform="rotate(90 35 35)" href="#arrow"/>
  <use transform="rotate(180 35 35)" href="#arrow"/>
  <use transform="rotate(-90 35 35)" href="#arrow"/>
- <g transform="rotate(-30 39.03 29.781)" stroke-width="11.584">
+ <g fill="#FFF" transform="rotate(-30 39.03 29.781)" stroke-width="11.584">
   <path transform="matrix(1 0 0 1.3596 0 -.11858)" d="m48.33 29.711h-33.927l16.964-29.382z"/>
   <rect x="27.761" y="38.278" width="7.2115" height="22.076"/>
  </g>
