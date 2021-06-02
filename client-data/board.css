@@ -146,8 +146,7 @@ html, body, svg {
 }
 
 #menu .tool.curTool {
-  background: #4ab2e2;
-  color: #ffffff;
+  background: linear-gradient(to right, #4ab2e2 30px, #fff 30px);
 }
 
 #menu .tool-icon {
@@ -175,7 +174,7 @@ html, body, svg {
 #menu .tool-name.slider {
     width: 150px;
     font-size: .9em;
-    vertical-align: top;
+    vertical-align: middle;
     padding: 6px;
 }
 
@@ -202,11 +201,11 @@ input {
 	display: inline-block;
 	margin: 3px;
 	padding: 0;
+	vertical-align: initial;
 }
 
 .colorPresets {
-	margin-right: 6px;
-	vertical-align: top;
+	margin: 3px;
 	display: inline-block;
 }
 
@@ -217,7 +216,6 @@ input {
 	display: inline-block;
 	margin-right: 6px;
 	padding: 0;
-	vertical-align: middle;
 }
 
 .rangeChooser {

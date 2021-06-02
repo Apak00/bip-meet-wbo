@@ -164,20 +164,15 @@ Tools.HTML = {
 	changeTool: function (oldToolName, newToolName) {
 		var oldTool = document.getElementById("toolID-" + oldToolName);
 		var newTool = document.getElementById("toolID-" + newToolName);
-		if (oldTool && oldTool.classList.contains("curTool")) {
-			const images = oldTool.querySelectorAll('img');
-			images.forEach(img => {
-				if(img.src) img.src = img.src.slice(0 , -4).replace(/(.*)(w)/, '$1') + img.src.slice(-4);
-			});
 
+		if (oldTool && oldTool.classList.contains("curTool")) {
+			var img = oldTool.querySelector('img');
+			if(img) img.src = img.src.slice(0 , -4).replace(/(.*)(w)/, '$1') + img.src.slice(-4);
 			oldTool.classList.remove("curTool");	
 		}
 		if (newTool && !newTool.classList.contains("curTool")) {
-			const images = newTool.querySelectorAll('img');
-			images.forEach(img => {
-				if(img.src) img.src = img.src.slice(0 , -4) + "w" + img.src.slice(-4)
-			});
-
+			var img = newTool.querySelector('img');
+			if(img.src) img.src = img.src.slice(0 , -4) + "w" + img.src.slice(-4)
 			newTool.classList.add("curTool");
 		}
 	},
