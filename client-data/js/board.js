@@ -62,9 +62,10 @@ Tools.connect = function () {
 		self.socket = null;
 	}
 
+	var boardName = window.location.pathname.split("/boards")[1] || window.location.pathname; 
 
 	this.socket = io.connect('', {
-		"path": window.location.pathname.split("/boards/")[0] + "/socket.io",
+		"path": "/annotation" + "/socket.io" + boardName,
 		"reconnection": true,
 		"reconnectionDelay": 100, //Make the xhr connections as fast as possible
 		"timeout": 1000 * 60 * 20 // Timeout after 20 minutes
