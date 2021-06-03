@@ -62,10 +62,12 @@ Tools.connect = function () {
 		self.socket = null;
 	}
 
+ 	var isLocal = window.location.origin.startsWith('http://localhost:')
 	var boardName = window.location.pathname.split("/boards")[1] || window.location.pathname; 
+	var basePath = isLocal ? window.location.pathname.split("/boards/")[0] : "/annotation" 
 
 	this.socket = io.connect('', {
-		"path": "/annotation" + "/socket.io" + boardName,
+		"path": basePath + "/socket.io" + boardName,
 		"reconnection": true,
 		"reconnectionDelay": 100, //Make the xhr connections as fast as possible
 		"timeout": 1000 * 60 * 20 // Timeout after 20 minutes
