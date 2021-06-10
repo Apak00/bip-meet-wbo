@@ -11,12 +11,16 @@
     "accept-language-parser": "^1.5.0",
     "async-mutex": "^0.3.1",
     "handlebars": "^4.7.7",
+    "pm2": "^5.1.0",
     "polyfill-library": "^3.104.0",
     "serve-static": "^1.14.1",
     "socket.io": "^3.1.2"
   },
   "scripts": {
     "start": "node ./server/server.js",
+    "pm2-start": "PORT=5001 ./node_modules/.bin/pm2 start server/server.js",
+    "pm2-stop": "./node_modules/.bin/pm2 stop server/server.js",
+    "pm2-log": "./node_modules/.bin/pm2 log server/server.js",
     "test": "nightwatch tests"
   },
   "main": "./server/server.js",
