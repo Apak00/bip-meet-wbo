@@ -167,18 +167,16 @@ class BoardData {
 
   /** Delays the triggering of auto-save by SAVE_INTERVAL seconds */
   delaySave() {
-    if (config.SAVE_TO_FILE) {
-      if (this.saveTimeoutId !== undefined) clearTimeout(this.saveTimeoutId);
-      this.saveTimeoutId = setTimeout(this.save.bind(this), config.SAVE_INTERVAL);
-      if (Date.now() - this.lastSaveDate > config.MAX_SAVE_DELAY)
-        setTimeout(this.save.bind(this), 0);  
-    }
+    if (this.saveTimeoutId !== undefined) clearTimeout(this.saveTimeoutId);
+    this.saveTimeoutId = setTimeout(this.save.bind(this), config.SAVE_INTERVAL);
+    if (Date.now() - this.lastSaveDate > config.MAX_SAVE_DELAY)
+      setTimeout(this.save.bind(this), 0);
   }
 
   /** Saves the data in the board to a file. */
   async save() {
     // The mutex prevents multiple save operation to happen simultaneously
-    config.SAVE_TO_FILE && this.saveMutex.runExclusive(this._unsafe_save.bind(this));
+    this.saveMutex.runExclusive(this._unsafe_save.bind(this));
   }
 
   /** Save the board to disk without preventing multiple simultaneaous saves. Use save() instead */
