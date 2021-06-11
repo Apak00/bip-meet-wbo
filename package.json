@@ -18,7 +18,7 @@
   },
   "scripts": {
     "start": "node ./server/server.js",
-    "pm2-start": "PORT=5001 ./node_modules/.bin/pm2 start server/server.js",
+    "pm2-start": "PORT=5001 SAVE_TO_FILE=disabled ./node_modules/.bin/pm2 start server/server.js",
     "pm2-stop": "./node_modules/.bin/pm2 stop server/server.js",
     "pm2-log": "./node_modules/.bin/pm2 log server/server.js",
     "test": "nightwatch tests"

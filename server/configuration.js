@@ -45,4 +45,6 @@ module.exports = {
   /** Automatically switch to White-out on finger touch after drawing
       with Pencil using a stylus. Only supported on iPad with Apple Pencil. */
   AUTO_FINGER_WHITEOUT: process.env['AUTO_FINGER_WHITEOUT'] !== "disabled",
+
+  SAVE_TO_FILE: process.env['SAVE_TO_FILE'] !== "disabled"
 };
