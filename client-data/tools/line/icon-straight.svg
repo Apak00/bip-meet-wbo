@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="60" height="60" version="1.1" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" >
- <path d="m3 40 25-0-0-21 23-0" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+<svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>53F25068-D465-44A5-ADD7-29F5029CF548</title>
+    <g id="Annotation-V2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="01.08---Eba--Desktop-app---Annotation---Picture-In-Picture---Drawing-Selected.-Copy" transform="translate(-73.000000, -282.000000)" fill="#000000">
+            <path d="M93.6153846,286 L93.6153846,287.384615 L78.384,287.384 L78.3846154,299.846154 L90.9651615,299.846154 L89.1748538,298.055915 L90.1538462,297.076923 L93.6153846,300.538462 L90.1538462,304 L89.1748538,303.021008 L90.9651615,301.230769 L78.3846154,301.230769 C77.6202772,301.229892 77.0008775,300.610492 77,299.846154 L77,299.846154 L77,287.384615 C77,286.619913 77.6199134,286 78.3846154,286 L78.3846154,286 L93.6153846,286 Z" id="Combined-Shape-Copy" transform="translate(85.307692, 295.000000) rotate(-44.000000) translate(-85.307692, -295.000000) "></path>
+        </g>
+    </g>
 </svg>

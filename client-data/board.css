@@ -1,7 +1,12 @@
+*:focus {
+	outline: none;
+}
+
 html, body, svg {
 	padding:0;
 	margin:0;
 	font-family: Liberation sans, sans-serif;
+	overflow: hidden;
 }
 
 #canvas {
@@ -98,19 +103,18 @@ html, body, svg {
 	pointer-events: auto;
 	white-space: nowrap;
 	list-style-position:inside;
-	border:1px solid #eeeeee;
+	border:1px solid #d7d8de;
 	text-decoration:none;
 	cursor:pointer;
 	background: #ffffff;
 	margin-top: 10px;
-	height: 40px;
-	line-height: 40px;
+	height: 30px;
+	line-height: 30px;
 	border-radius: 0px;
-	max-width: 40px;
+	max-width: 30px;
 	transition-duration: .2s;
 	overflow: hidden;
 	width: max-content;
-	box-shadow: inset 0 0 3px #8FA2BC;
 }
 
 #menu .tool:hover {
@@ -119,7 +123,7 @@ html, body, svg {
 
 @media (hover: none), (pointer: coarse) {
 	#menu .tool:hover {
-		max-width: 40px;
+		max-width: 30px;
 	}
 
 	#menu .tool:focus {
@@ -147,23 +151,17 @@ html, body, svg {
 }
 
 #menu .tool.curTool {
-  box-shadow: 0 0 5px #0074D9;
-  background: linear-gradient(#96E1FF, #36A2FF);
+  background: linear-gradient(to right, #4ab2e2 30px, #fff 30px);
 }
 
 #menu .tool-icon {
 	display: inline-block;
 	text-align:center;
-	width: 35px;
-	height: 35px;
-	margin: 2.5px;
+	margin: 4px;
 	font-family: mono, monospace;
-	overflow: hidden;
+	vertical-align: middle;
 }
 
-#menu img.tool-icon {
-	pointer-events: none;
-}
 
 #menu .tool-icon > * {
 	display: block;
@@ -172,72 +170,57 @@ html, body, svg {
 
 #menu .tool-name {
 	text-align: center;
-	font-size: 23px;
-	margin-right: 20px;
-	margin-left: 20px;
-	margin-bottom: 2.5px;
-	display: inline-block;
-	vertical-align: text-bottom;
+    font-size: 14px;
+    margin-right: 8px;
+    margin-left: 12px;
+    display: inline-block;
+    vertical-align: top;
 }
 #menu .tool-name.slider {
-	display: inline-block;
     width: 150px;
-    height: 30px;
     font-size: .9em;
-    line-height: 15px;
-    vertical-align: top;
+    vertical-align: middle;
     padding: 6px;
-
 }
 
-#menu .tool.hasSecondary .tool-icon{
-	margin-top:0px;
-	margin-left:0px;
-}
-
-#menu .tool .tool-icon.secondaryIcon{
+#menu .tool .tool-icon.secondaryIcon, #menu .tool .tool-icon.primaryIconCopy{
 	display: none;
 }
 
-#menu .tool.hasSecondary .tool-icon.secondaryIcon{
-	display: block;
-	position: absolute;
-    bottom: 0px;
-    left: 26px;
-    width: 12px;
-    height: 12px;
+
+
+#menu .tool.hasSecondary .tool-icon.secondaryIcon, #menu .tool.hasSecondary .tool-icon.primaryIconCopy {
+	display: inline-block;
 }
 
 input {
 	font-size:16px;
 }
 
-#chooseColor {
-	width: 100%;
-	height:100%;
+#menu #chooseColor {
+	width: 24px;
+	height: 24px;
 	border: 0;
 	border-radius: 0;
 	color:black;
-	display: block;
-	margin: 0;
+	display: inline-block;
+	margin: 3px;
 	padding: 0;
+	vertical-align: initial;
 }
 
 .colorPresets {
-	margin-right: 20px;
-	vertical-align: top;
+	margin: 3px;
 	display: inline-block;
 }
 
 .colorPresetButton {
-	width: 30px;
-	height: 30px;
-	border: 1px solid black;
-	border-radius: 3px;
+	width: 24px;
+	height: 24px;
+	border-radius: 50%;
 	display: inline-block;
 	margin-right: 6px;
 	padding: 0;
-	vertical-align: middle;
 }
 
 .rangeChooser {
@@ -283,4 +266,24 @@ circle.opcursor {
 	label.tool-name[for=chooseColor] {
 		line-height: 10px;
 	}
+}
+
+#menu .tools svg, #menu .tools img {
+	width: 22px;
+	height: auto;
+}
+
+input[type="color"] {
+	-webkit-appearance: none;
+
+}
+input[type="color"]::-webkit-color-swatch-wrapper {
+	padding: 0;
+	background-color: #fff;
+
+}
+input[type="color"]::-webkit-color-swatch {
+	border-radius: 50%;
+	background-color: none;
+	border: 0;
 }

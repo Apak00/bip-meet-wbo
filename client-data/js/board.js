@@ -62,9 +62,12 @@ Tools.connect = function () {
 		self.socket = null;
 	}
 
+ 	var isLocal = window.location.origin.startsWith('http://localhost:')
+	var boardName = window.location.pathname.split("/boards")[1] || window.location.pathname; 
+	var basePath = isLocal ? window.location.pathname.split("/boards/")[0] : "/annotation" 
 
 	this.socket = io.connect('', {
-		"path": window.location.pathname.split("/boards/")[0] + "/socket.io",
+		"path": basePath + "/socket.io" + boardName,
 		"reconnection": true,
 		"reconnectionDelay": 100, //Make the xhr connections as fast as possible
 		"timeout": 1000 * 60 * 20 // Timeout after 20 minutes
@@ -125,15 +128,22 @@ Tools.HTML = {
 		});
 	},
 	addTool: function (toolName, toolIcon, toolIconHTML, toolShortcut, oneTouch) {
-		var callback = function () {
-			Tools.change(toolName);
+		var callback = function (buttonNo) {
+			return (e) => {
+				e.stopPropagation();
+				Tools.change(toolName, buttonNo)
+			}; 
 		};
 		this.addShortcut(toolShortcut, function () {
 			Tools.change(toolName);
 			document.activeElement.blur && document.activeElement.blur();
 		});
 		return this.template.add(function (elem) {
-			elem.addEventListener("click", callback);
+			const primaryIconCopyElement = elem.getElementsByClassName('primaryIconCopy')[0];
+			const secondaryIconElement = elem.getElementsByClassName('secondaryIcon')[0];
+			primaryIconCopyElement.addEventListener('click', callback('first'));
+			secondaryIconElement.addEventListener('click', callback('second'));
+			elem.addEventListener("click", callback());
 			elem.id = "toolID-" + toolName;
 			elem.getElementsByClassName("tool-name")[0].textContent = Tools.i18n.t(toolName);
 			var toolIconElem = elem.getElementsByClassName("tool-icon")[0];
@@ -149,6 +159,7 @@ Tools.HTML = {
 				elem.classList.add('hasSecondary');
 				var secondaryIcon = elem.getElementsByClassName('secondaryIcon')[0];
 				secondaryIcon.src = Tools.list[toolName].secondary.icon;
+				primaryIconCopyElement.src = Tools.list[toolName].icon;
 				toolIconElem.classList.add("primaryIcon");
 			}
 		});
@@ -156,22 +167,34 @@ Tools.HTML = {
 	changeTool: function (oldToolName, newToolName) {
 		var oldTool = document.getElementById("toolID-" + oldToolName);
 		var newTool = document.getElementById("toolID-" + newToolName);
-		if (oldTool) oldTool.classList.remove("curTool");
-		if (newTool) newTool.classList.add("curTool");
+
+		if (oldTool && oldTool.classList.contains("curTool")) {
+			var img = oldTool.querySelector('img');
+			if(img) img.src = img.src.slice(0 , -4).replace(/(.*)(w)/, '$1') + img.src.slice(-4);
+			oldTool.classList.remove("curTool");	
+		}
+		if (newTool && !newTool.classList.contains("curTool")) {
+			var img = newTool.querySelector('img');
+			if(img.src) img.src = img.src.slice(0 , -4) + "w" + img.src.slice(-4)
+			newTool.classList.add("curTool");
+		}
 	},
 	toggle: function (toolName, name, icon) {
 		var elem = document.getElementById("toolID-" + toolName);
 
-		// Change secondary icon
-		var primaryIcon = elem.getElementsByClassName("primaryIcon")[0];
-		var secondaryIcon = elem.getElementsByClassName("secondaryIcon")[0];
-		var primaryIconSrc = primaryIcon.src;
-		var secondaryIconSrc = secondaryIcon.src;
-		primaryIcon.src = secondaryIconSrc;
-		secondaryIcon.src = primaryIconSrc;
+		// // Change secondary icon
+		// var primaryIcon = elem.getElementsByClassName("primaryIcon")[0];
+		// var secondaryIcon = elem.getElementsByClassName("secondaryIcon")[0];
+		// var primaryIconSrc = primaryIcon.src;
+		// var secondaryIconSrc = secondaryIcon.src;
+		// primaryIcon.src = secondaryIconSrc;
+		// secondaryIcon.src = primaryIconSrc;
 
 		// Change primary icon
-		elem.getElementsByClassName("tool-icon")[0].src = icon;
+		elem.getElementsByClassName("tool-icon")[0].src = 
+			Tools.curTool.name === toolName 
+			? icon.slice(0 , -4) + "w" + icon.slice(-4) 
+			: icon;
 		elem.getElementsByClassName("tool-name")[0].textContent = Tools.i18n.t(name);
 	},
 	addStylesheet: function (href) {
@@ -252,19 +275,30 @@ Tools.add = function (newTool) {
 	Tools.HTML.addTool(newTool.name, newTool.icon, newTool.iconHTML, newTool.shortcut, newTool.oneTouch);
 };
 
-Tools.change = function (toolName) {
+Tools.change = function (toolName, buttonNo) {
 	var newTool = Tools.list[toolName];
 	var oldTool = Tools.curTool;
 	if (!newTool) throw new Error("Trying to select a tool that has never been added!");
-	if (newTool === oldTool) {
-		if (newTool.secondary) {
-			newTool.secondary.active = !newTool.secondary.active;
-			var props = newTool.secondary.active ? newTool.secondary : newTool;
-			Tools.HTML.toggle(newTool.name, props.name, props.icon);
-			if (newTool.secondary.switch) newTool.secondary.switch();
+
+	if(buttonNo) {
+		var props;
+
+		switch(buttonNo){
+			case 'first':
+				props = newTool;
+				newTool.secondary.active = false;
+			break;
+			case 'second':
+				props = newTool.secondary;
+				newTool.secondary.active = true;
+				if (newTool.secondary.switch) newTool.secondary.switch();
+			break;
 		}
-		return;
+		Tools.HTML.toggle(newTool.name, props.name, props.icon);	
 	}
+
+	if (newTool === oldTool) { return; }
+
 	if (!newTool.oneTouch) {
 		//Update the GUI
 		var curToolName = (Tools.curTool) ? Tools.curTool.name : "";

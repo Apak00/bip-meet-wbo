@@ -41,7 +41,8 @@
 				<li class="tool" tabindex="-1">
 					<img class="tool-icon" width="35" height="35" src="" alt="icon" />
 					<span class="tool-name"></span>
-					<img class="tool-icon secondaryIcon" width="35" height="35" src="data:," alt="icon" />
+					<img class="tool-icon primaryIconCopy" width="35" height="35" src="" alt="icon" />
+					<img class="tool-icon secondaryIcon" width="35" height="35" src="" alt="icon" />
 				</li>
 			</ul>
 
@@ -56,8 +57,8 @@
 				<li class="tool" tabindex="-1"
 					title="{{translations.size}} ({{translations.keyboard_shortcut}}: alt + {{translations.mousewheel}})">
 					<img class="tool-icon" width="60" height="60" src="icon-size.svg" alt="size" />
+					<span class="tool-name">{{translations.size}}</span>
 					<label class="tool-name slider" for="chooseSize">
-						<span>{{translations.size}}</span>
 						<input type="range" id="chooseSize" value="4" min="1" max="50" step="1" class="rangeChooser" />
 					</label>
 				</li>
@@ -73,8 +74,8 @@
 							<circle cx=4 cy=4 id="opacityIndicator" r=3.5 fill="url(#opacityPattern)"></circle>
 						</svg>
 					</span>
+					<span class="tool-name">{{translations.opacity}}</span>
 					<label class="tool-name slider" for="chooseOpacity">
-						<span>{{translations.opacity}}</span>
 						<input type="range" id="chooseOpacity" value="1" min="0.2" max="1" step="0.1"
 							class="rangeChooser" />
 					</label>
@@ -100,7 +101,7 @@
 	<script src="../tools/eraser/eraser.js"></script>
 	<script src="../tools/hand/hand.js"></script>
 	<script src="../tools/grid/grid.js"></script>
-	<script src="../tools/zoom/zoom.js"></script>
+	<!-- <script src="../tools/zoom/zoom.js"></script> -->
 	<script src="../js/canvascolor.js"></script>
 </body>
 
